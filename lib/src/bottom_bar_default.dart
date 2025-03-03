@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../count_style.dart';
 import '../tab_item.dart';
-import 'bottom_bar.dart';
 import '../widgets/build_icon.dart';
+import 'bottom_bar.dart';
 
 class BottomBarDefault extends StatefulWidget {
   final List<TabItem> items;
@@ -32,6 +32,7 @@ class BottomBarDefault extends StatefulWidget {
   final double? pad;
   final bool? enableShadow;
   final bool animated;
+  final Color? activeTitleColor;
   const BottomBarDefault({
     Key? key,
     required this.items,
@@ -54,6 +55,7 @@ class BottomBarDefault extends StatefulWidget {
     this.bottom = 12,
     this.pad = 4,
     this.enableShadow = true,
+    this.activeTitleColor,
   }) : super(key: key);
 
   @override
@@ -125,8 +127,7 @@ class _BottomBarDefaultState extends State<BottomBarDefault> with TickerProvider
   ) {
     return Container(
       width: double.infinity,
-      padding:
-          widget.paddingVertical != null ? EdgeInsets.symmetric(vertical: widget.paddingVertical ?? 17.0) : padDefault,
+      padding: widget.paddingVertical != null ? EdgeInsets.symmetric(vertical: widget.paddingVertical ?? 17.0) : padDefault,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,12 +137,17 @@ class _BottomBarDefaultState extends State<BottomBarDefault> with TickerProvider
             iconColor: itemColor,
             iconSize: widget.iconSize,
             countStyle: widget.countStyle,
+            activeTitleColor: widget.activeTitleColor,
           ),
           if (item.title is String && item.title != '') ...[
             SizedBox(height: widget.pad),
             Text(
               item.title!,
-              style: Theme.of(context).textTheme.labelSmall?.merge(widget.titleStyle).copyWith(color: itemColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.merge(widget.titleStyle)
+                  .copyWith(color: widget.activeTitleColor ?? itemColor),
               textAlign: TextAlign.center,
             )
           ],
@@ -187,7 +193,7 @@ class _BottomBarDefaultState extends State<BottomBarDefault> with TickerProvider
           ? IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: List.generate(widget.items.length, (index) {    
+                children: List.generate(widget.items.length, (index) {
                   String value = widget.items[index].key ?? '';
                   return Expanded(
                     child: InkWell(

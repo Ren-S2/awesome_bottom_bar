@@ -18,6 +18,7 @@ abstract class BottomBar extends StatefulWidget {
   /// style
   final Color colorItem;
   final Color activeColor;
+  final Color? activeTitleColor;
   final double sizeIcon;
   final TextStyle? styleTitle;
   final double? paddingVer;
@@ -40,6 +41,7 @@ abstract class BottomBar extends StatefulWidget {
     this.paddingVer,
     this.doubleBlur,
     this.styleCount,
+    this.activeTitleColor,
   })  : assert(indexActive == 0 || indexActive < itemData.length),
         super(key: key);
 
@@ -56,6 +58,7 @@ abstract class BottomBar extends StatefulWidget {
     TextStyle? styleTitle,
     double? paddingVer,
     CountStyle? countStyle,
+    Color? activeTitleColor,
   });
 
   @protected
@@ -70,8 +73,7 @@ abstract class BottomBar extends StatefulWidget {
     required Widget Function(
       TabItem item,
       bool isSelected,
-    )
-        buildView,
+    ) buildView,
   });
 }
 
@@ -96,6 +98,7 @@ class _BottomBarState extends State<BottomBar> {
         styleTitle: widget.styleTitle,
         paddingVer: widget.paddingVer,
         countStyle: widget.styleCount,
+        activeTitleColor: widget.activeTitleColor,
       ),
     );
   }

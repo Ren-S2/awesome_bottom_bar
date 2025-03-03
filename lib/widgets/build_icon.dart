@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../tab_item.dart';
 import '../count_style.dart';
+import '../tab_item.dart';
 
 class BuildIcon extends StatelessWidget {
   final TabItem item;
   final double iconSize;
   final Color iconColor;
   final CountStyle? countStyle;
+  final Color? activeTitleColor;
 
   const BuildIcon({
     Key? key,
@@ -15,6 +16,7 @@ class BuildIcon extends StatelessWidget {
     required this.iconColor,
     this.iconSize = 22,
     this.countStyle,
+    this.activeTitleColor,
   }) : super(key: key);
 
   @override
